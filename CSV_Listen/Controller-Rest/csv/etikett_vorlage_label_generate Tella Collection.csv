@@ -1,0 +1,25 @@
+type,sku,art,kollektion,masse,farbe,ean
+variant_child,RT121Tella140x70,Gabbeh,Tella,140 x 70 cm,Rust-Red,4251469407206
+variant_child,RT121Tella200x140,Gabbeh,Tella,200 x 140 cm,Rust-Red,4251469452992
+variant_child,RT121Tella240x170,Gabbeh,Tella,240 x 170 cm,Rust-Red,4251469453005
+variant_child,RT121Tella250x200,Gabbeh,Tella,250 x 200 cm,Rust-Red,4251469453012
+variant_child,RT121Tella300x200,Gabbeh,Tella,300 x 200 cm,Rust-Red,4251469451711
+variant_child,RT121Tella300x250,Gabbeh,Tella,300 x 250 cm,Rust-Red,4251469453098
+variant_child,RT121Tella350x250,Gabbeh,Tella,350 x 250 cm,Rust-Red,4251469407190
+variant_child,RT121Tella300x80,Gabbeh,Tella,300 x 80 cm,Rust-Red,4251469407169
+variant_child,SC121Tella140x70,Gabbeh,Tella,140 x 70 cm,Scala Gold,4251469407053
+variant_child,SC121Tella200x140,Gabbeh,Tella,200 x 140 cm,Scala Gold,4251469407107
+variant_child,SC121Tella240x170,Gabbeh,Tella,240 x 170 cm,Scala Gold,4251469407114
+variant_child,SC121Tella250x200,Gabbeh,Tella,250 x 200 cm,Scala Gold,4251469452978
+variant_child,SC121Tella300x200,Gabbeh,Tella,300 x 200 cm,Scala Gold,4251469407121
+variant_child,SC121Tella300x250,Gabbeh,Tella,300 x 250 cm,Scala Gold,4251469452985
+variant_child,SC121Tella350x250,Gabbeh,Tella,350 x 250 cm,Scala Gold,4251469407138
+variant_child,SC121Tella300x80,Gabbeh,Tella,300 x 80 cm,Scala Gold,4251469407077
+variant_child,GY121Tella140x70,Gabbeh,Tella,140 x 70 cm,Grey,4251469453104
+variant_child,GY121Tella200x140,Gabbeh,Tella,200 x 140 cm,Grey,4251469453111
+variant_child,GY121Tella240x170,Gabbeh,Tella,240 x 170 cm,Grey,4251469453128
+variant_child,GY121Tella250x200,Gabbeh,Tella,250 x 200 cm,Grey,4251469453135
+variant_child,GY121Tella300x200,Gabbeh,Tella,300 x 200 cm,Grey,4251469453142
+variant_child,GY121Tella300x250,Gabbeh,Tella,300 x 250 cm,Grey,4251469453159
+variant_child,GY121Tella350x250,Gabbeh,Tella,350 x 250 cm,Grey,4251469453166
+variant_child,GY121Tella300x80,Gabbeh,Tella,300 x 80 cm,Grey,4251469453173

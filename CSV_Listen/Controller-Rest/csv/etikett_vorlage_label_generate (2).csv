@@ -1,0 +1,19 @@
+type,sku,art,kollektion,masse,farbe,ean
+variant_child,SVMiami25x25,Kelim,Miami,25 x 25 cm,Silver,4251469492158
+variant_child,SVMiami150x80,Kelim,Miami,150 x 80 cm,Silver,4251469492165
+variant_child,SVMiamil200x140,Kelim,Miami,200 x 140 cm,Silver,4251469492172
+variant_child,SVMiami230x160,Kelim,Miami,230 x 160 cm,Silver,4251469492189
+variant_child,SVMiami300x200,Kelim,Miami,300 x 200 cm,Silver,4251469492196
+variant_child,SVMiami200x80,Kelim,Miami,200 x 80 cm,Silver,4251469492202
+variant_child,BRMiami25x25,Kelim,Miami,25 x 25 cm,Caramel Brown,4251469492219
+variant_child,BRMiami150x80,Kelim,Miami,150 x 80 cm,Caramel Brown,4251469492226
+variant_child,BRMiami200x140,Kelim,Miami,200 x 140 cm,Caramel Brown,4251469492233
+variant_child,BRMiami230x160,Kelim,Miami,230 x 160 cm,Caramel Brown,4251469492240
+variant_child,BRMiami300x200,Kelim,Miami,300 x 200 cm,Caramel Brown,4251469492257
+variant_child,BRMiami200x80,Kelim,Miami,200 x 80 cm,Caramel Brown,4251469492264
+variant_child,WHMiami25x25,Kelim,Miami,25 x 25 cm,White,4251469492271
+variant_child,WHMiami150x80,Kelim,Miami,150 x 80 cm,White,4251469492288
+variant_child,WHMiami200x140,Kelim,Miami,200 x 140 cm,White,4251469492295
+variant_child,WHMiami230x160,Kelim,Miami,230 x 160 cm,White,4251469492301
+variant_child,WHMiami300x200,Kelim,Miami,300 x 200 cm,White,4251469492318
+variant_child,WHMiami200x80,Kelim,Miami,200 x 80 cm,White,4251469492325

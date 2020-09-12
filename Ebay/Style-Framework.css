@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bellota+Text:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+
+
+
+body {
+    padding: 0;
+    margin: 0px 0px 0px 0px;
+}
+
+a {
+    text-decoration: none;
+
+}
+
+/*################################*/
+/*Scrollbar*/
+/*################################*/
+
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #9d212d;
+    border-radius: 20px;
+
+}
+
+
+
+
+
+
+
+.container-max {
+    max-width: 1340px;
+}
+
+
+.flex-h-no-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.flex-v-nowrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.flex-h-spaces {
+    justify-content: space-between;
+
+}
+
+.flex-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.flex-position-L {
+    justify-content: start;
+}
+
+
+.flex-l-change {
+    justify-content: start;
+}
+
+/*Only Mobile/Desktop*/
+.OnlyMobile {
+    display: none;
+}
+
+@media only screen and (max-width: 991px) {
+    .OnlyMobile {
+        display: block;
+    }
+
+    .OnlyDesktop {
+        display: none;
+    }
+
+    .flex-l-change {
+        justify-content: center;
+    }
+
+}
+
+
+.Ausblenden {
+    display: none;
+}
+
+
+
+.BorderRadiusSmall:hover {
+    border-radius: 10px;
+}
+
+
+.textbox-V1 {
+    width: 40vw;
+    background-color: #9D212D;
+    color: white;
+    font-family: 'Bellota Text', bold;
+    font-size: 40pt;
+    text-align: center;
+    padding: 30px;
+    min-height: 600px;
+    height: auto;
+
+}
+
+.textbox-V2 {
+    font-size: 50pt;
+    margin-top: 60px;
+}
+
+.FilterBlur {
+    filter: blur(5px);
+}
+
+
+@media only screen and (max-width: 1285px) {
+    .textbox-V1 {
+        width: 50vw;
+    }
+
+}
+
+
+
+@media only screen and (max-width: 991px) {
+
+    .flex-change {
+        flex-direction: column-reverse;
+
+    }
+
+    .flex-change-normal {
+        flex-direction: column;
+
+    }
+
+
+    .textbox-V1 {
+        width: 100%;
+        padding: 0;
+    }
+
+    .textbox-V1 > div {
+        padding: 0px 20px;
+    }
+
+}
+
+
+
+
+/*##################################*/
+/*BUTTONS*/
+/*##################################*/
+
+.Buttons_Startseite_V1 > .KleinUnterButtonText {
+    font-size: 10pt;
+}
+
+
+.Buttons_Startseite_V1 {
+    background-color: #fff;
+    color: #9d212d;
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+    font-family: 'Bellota Text', bold;
+    font-weight: bold;
+    font-size: 16pt;
+    transition: all 0.5s ease;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.14);
+    min-width: 200px;
+    max-width: 600px;
+
+}
+
+.Buttons_Startseite_V1:hover {
+    border-radius: 50px;
+    background-color: #9d212d;
+    color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.14);
+    cursor: pointer;
+}
+
+
+.Buttons_Startseite_V2 {
+    color: #9D212D;
+    background-color: white;
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+    font-family: 'Bellota Text', bold;
+    font-weight: bold;
+    font-size: 16pt;
+    transition: all 0.5s ease;
+}
+
+.Buttons_Startseite_V2:hover {
+    border-radius: 50px;
+    background-color: white;
+    color: #9D212D;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.14);
+}

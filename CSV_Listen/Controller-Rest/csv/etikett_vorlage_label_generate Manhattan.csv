@@ -1,0 +1,13 @@
+type,sku,art,kollektion,masse,farbe,ean
+variant_child,GDManhat140x70,Kelim,Manhattan,140 x 70 cm,Gold,4251469411463
+variant_child,GDManhat200x140,Kelim,Manhattan,200 x 140 cm,Gold,4251469453203
+variant_child,GDManhat240x170,Kelim,Manhattan,240 x 170 cm,Gold,4251469453210
+variant_child,GDManhat290x200,Kelim,Manhattan,290 x 200 cm,Gold,4251469453227
+variant_child,BLManhat140x70,Kelim,Manhattan,140 x 70 cm,Blue,4251469411333
+variant_child,BLManhat200x140,Kelim,Manhattan,200 x 140 cm,Blue,4251469411340
+variant_child,BLManhat240x170,Kelim,Manhattan,240 x 170 cm,Blue,4251469451391
+variant_child,BLManhat290x200,Kelim,Manhattan,290 x 200 cm,Blue,4251469411357
+variant_child,SVManhat140x70,Kelim,Manhattan,140 x 70 cm,Silver,4251469491397
+variant_child,SVManhat200x140,Kelim,Manhattan,200 x 140 cm,Silver,4251469491403
+variant_child,SVManhat240x170,Kelim,Manhattan,240 x 170 cm,Silver,4251469491410
+variant_child,SVManhat290x200,Kelim,Manhattan,290 x 200 cm,Silver,4251469491427

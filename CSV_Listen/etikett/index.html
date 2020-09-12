@@ -1,0 +1,209 @@
+<?php session_start(); ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Wawi - Create Label</title>
+</head>
+<body>
+<style>
+    .sh-btn {
+        background-color: #825d5f;
+        color: white;
+    }
+    #loader {
+        border: 16px solid #f3f3f3; /* Light grey */
+        border-top: 16px solid #5b3b3d; /* Red */
+        border-radius: 50%;
+        width: 250px;
+        height: 250px;
+        animation: spin 2s linear infinite;
+        margin-left: 36%;
+        display: none;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    a {color: inherit;}
+    #header-top {background-color: #f6e7d7;}
+    #header {background-color: #dacbbb;}
+    #header > a > div {font-size: large; font-weight: bold; text-align: center; padding-top: 20px;padding-bottom: 20px;}
+    #header > a > div:hover {background-color: #a5787b;color: white;}
+    .products-tab {background-color: #5b3b3d;color: white;}
+    .btn-container { text-align: right;text-align: end;}
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;}
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;}
+    tr:nth-child(even) {background-color: #e4e4e4;}
+    #row-show-products-search {margin-top: 15px;}
+    #row-edit-qty-sold {margin-top: 15px;}
+    @media only screen and (max-width: 580px) {
+        /*if screen smaller than 580px*/
+        #header > a > div {font-size: medium;}
+    }
+    .marg-15-down { margin-top: 15px;}
+    .button-link1 {
+        font-size: x-large;color: white;  background-color: #b43f44; border: 4px solid #b43f44;
+    }
+    .button-link2 {
+        font-size: x-large;color: white; background-color: #3f68b4; border: 4px solid #3f68b4;
+    }
+    .button-link3 {
+        font-size: x-large;color: white;background-color: #209a31; border: 4px solid #209a31;
+    }
+    .button-link4 {
+        font-size: x-large;color: white;background-color: #077717; border: 4px solid #077717;
+    }
+</style>
+
+<div class="container" style="width: 100%;">
+        <div class="row">
+            <div class="col-xs-12 col-md-12"><h2>Welcome</h2></div>
+        </div>
+		
+        <div class="row" style="font-size: larger; background-color: #d2edfa;margin-bottom: 20px;padding: 0px 15px;">
+            <h2>Create Big and Small Labels via List</h2>
+			<p>Step 1: Download CSV Template. Step 2: Fill out Template and uplaod it. Step 3: Download Labels as Zip File</p>
+            <table style="background-color: white;">
+                <tr><th>type</th><th>sku</th><th>art</th><th>kollektion</th><th>masse</th><th>farbe</th><th>ean</th></tr>
+                <tr><td>simple</td><td>123Ziegler140x93</td><td>Ziegler</td><td>leer</td><td>93 x 140</td><td>leer</td><td>144229193</td></tr>
+                <tr><td>variant_child</td><td>GDUni70x140</td><td>Gabbeh</td><td>Uni</td><td>70 x 140</td><td>Gold</td><td>144229193</td></tr>
+            </table>
+            <h4><button onclick="vorlageDownload(this,5);" class="sh-btn">Dowload CSV Template</button></h4>
+            <form id="uploadForm5" name="uploadForm5" action="#" enctype="multipart/form-data">
+                <label for="csv5">Upload CSV</label>
+                <input id="csv5" name="csv" type="file" required="required"/><br>
+                <input id="CSVUpload5" type="submit" class="btn btn-default sh-btn" name="Submit" value="Upload" />
+            </form>
+        </div>
+		<p> .</p>
+        <div class="row">
+            <div class="col-xs-12 col-md-12" style="background-color: #f7f4f0;">
+                <h3>Create Small Label</h3>
+                <form accept-charset="UTF-8" onsubmit="createLabel(event);">
+                    <label for="lSku">Sku</label>
+                    <input id="lSku" type="text">
+                    <label for="lEan">Ean</label>
+                    <input id="lEan" type="text" >
+                    <input type="submit" value="Create Label">
+                </form>
+            </div>
+		</div>
+		
+        <div class="row" id="row-loader">
+            <div class="col-sm-2 col-md-2"></div><div class="col-sm-8 col-md-8"><div id="loader"></div></div><div class="col-sm-2 col-md-2"></div>
+        </div>
+        <div class="row"><div class="col-xs-12 col-md-12"><h3><button id="response-wegwischen" >Clear View</button></h3></div></div>
+        <div class="row"><div class="col-xs-12 col-md-12" id="notification"></div></div>
+        <div class="row"><div class="col-xs-12 col-md-12" id="sh_response"></div></div>
+</div>
+
+<script>
+    //*Polyfill START
+    if (!String.prototype.includes) {
+        String.prototype.includes = function(search, start) {
+            'use strict';
+            if (typeof start !== 'number') {start = 0;}
+            if (start + search.length > this.length) {return false;} else {return this.indexOf(search, start) !== -1;}
+        };
+    }
+    //*Polyfill END
+    $('#response-wegwischen').click(function () {
+        document.getElementById("sh_response").innerHTML = '';
+        document.getElementById("notification").innerHTML = '';
+    });
+    function createLabel(e) {
+        console.log("createLabel");
+        e.preventDefault();
+        var sku = document.getElementById("lSku").value;
+        var ean = document.getElementById("lEan").value;
+		createLabelForce(sku,ean);
+    }
+    function createLabelForce(sku,ean) {
+        console.log("createLabelForce");
+        $.post("https://morgenland-teppiche.com/wawi2/Controller-Rest/Admin.php",
+            {
+                action: 'createLabelForce',
+                sku: sku,
+                ean: ean,
+				freaccess:true
+            },
+            function(response, status){
+                if(response.includes('Error') || response.includes('error') || response.includes('ehler')){
+                    //fehler von server
+                    document.getElementById("sh_response").innerHTML += "<div style='font-size: larger;font-weight: bold;'>"+response+"</div>";
+                }else{
+                    document.getElementById("sh_response").innerHTML += "<div>"+response+"</div>";
+                }
+                document.getElementById("loader").style.display = "none"; //macht loader aus
+            });
+
+        document.getElementById("loader").style.display = "block"; //mach loader an
+    }
+	
+    //Sanjay Etiketten
+    $("#uploadForm5").submit(function (event) {
+        event.preventDefault();
+
+        var formData = new FormData();
+        formData.append( 'csv',  $( '#csv5' )[0].files[0] );
+        formData.append( 'action',  'create-label-big-small' );
+		formData.append( 'freaccess',  true );
+
+        jQuery.ajax({
+            url: "https://morgenland-teppiche.com/wawi2/Controller-Rest/CSV.php",
+            data: formData,
+            type: "POST",
+            success: function (response) {
+                document.getElementById('sh_response').innerHTML = response;
+                enableButtons();
+            },
+            error: function () {
+                alert('Fehler');
+            },
+            cache: false,
+            contentType: false,
+            mimeType: 'multipart/form-data',
+            processData: false
+        });
+        disableButtons();
+        document.getElementById('sh_response').innerHTML = "Warten...";
+    });
+	
+    function vorlageDownload(node,number) {
+
+        $.post("https://morgenland-teppiche.com/wawi2/Controller-Rest/CSV.php",
+            {
+                action: "vorlage-download",
+                number:number,
+				freaccess:true
+            },
+            function(response, status){
+                document.getElementById("sh_response").innerHTML = response;
+                enableButtons();
+
+            });
+        disableButtons();
+    }
+	
+	function disableButtons(){
+        $('.sh-btn').prop('disabled', true);
+        document.getElementById("loader").style.display = "block"; //an
+    }
+    function enableButtons(){
+        $('.sh-btn').prop('disabled', false);
+        document.getElementById("loader").style.display = "none"; //aus
+    }
+</script>
+</body>
+</html>

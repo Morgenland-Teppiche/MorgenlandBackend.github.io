@@ -1,0 +1,348 @@
+<?php
+session_start();
+header('Access-Control-Allow-Origin: *');
+include "bar/BarcodeGenerator.php";
+include "bar/BarcodeGeneratorPNG.php";
+include "../Model/LoginValidate.php";
+include "../Model/Products.php";
+include "../Model/Logs.php";
+include "../Model/Order.php";
+include "../Helper/PlentyApi.php";
+include "../Helper/Webshop.php";
+//This Endpoint will be called by Webshop
+
+$productsModel = new Products();
+$webshop = new Webshop();
+
+if(isset($_POST["action"])){
+    $action = $_POST["action"];
+    $json = $_POST["json"];
+    $jsonUrlDecoded = urldecode($json);
+    //NOT NEED $jsonUrlAndUtf8Decoded = utf8_decode($jsonUrlDecoded); //Das ist nötig, wenn Request von Wildfly(Java) kommt (ISO-8859-1 characters were encoded with UTF-8)
+    Logs::insertNewLog("NEW ORDER: got action: ".$action.", jsonRaw: ".$json." --> jsonUrlDecoded: ".$jsonUrlDecoded,Logs::$type_system);
+
+    if ($action === "newOrder"){
+        //$mail = "s.hajir27@gmail.com";
+        //$jsonOrder = json_decode('{"id":12,"token":"aMz1WUDCVpW0iguZydqy","status":"In Bearbeitung","trackingCode":"","parcel":"","tax":0.19,"paymentMethod":"Vorkasse","paypalMail":"","customerUsername":"s.hajir27@gmail.com","customerFirstname":"ÜÄÄÄ?ßß","customerLastname":"Hajir","shipping_firstname":"Test1f","shipping_lastname":"Test1l","shipping_street_house":"Dahlgrünring, 4","shipping_postalcode":"21109","shipping_city":"Hamburg","shipping_country":"Deutschland","shipping_phone":"017679831856","shippingCostFull":0.0,"cartPrice":35.0,"cartPriceFull":35.0,"mapSkuAndslimProduct":{"GDUni60x40":{"skuu":"GDUni60x40","name1":"UNI","name2":"60 x 40, Gabbeh Gold","price":35,"qtyInCart":1}},"orderedProducts":[]}',true);
+
+        $jsonOrder = json_decode($jsonUrlDecoded,true);
+        $jsonOrder["id"];
+
+        $paymethod = $jsonOrder["paymentMethod"];
+        $email = $jsonOrder["customerUsername"];//email
+        $firstName = $jsonOrder["shipping_firstname"];
+        $lastname = $jsonOrder["shipping_lastname"];
+        $street = $jsonOrder["shipping_street"];
+        $housenumber = $jsonOrder["shipping_house"];
+
+        $plz = $jsonOrder["shipping_postalcode"];
+        $town = $jsonOrder["shipping_city"];
+        $country = $jsonOrder["shipping_country"];
+        $phone = $jsonOrder["shipping_phone"];
+        $shippingCost = $jsonOrder["shippingCostFull"];
+        $tax = intval($jsonOrder["tax"]);
+        //$amount = $jsonOrder["cartPriceFull"];
+        $productsAssocArray = $jsonOrder["mapSkuAndslimProduct"];
+        Logs::insertNewLog("$ jsonOrder: ".json_encode($jsonOrder),Logs::$type_system);
+        echo "thanks, got your action '".$action."' and data(urldecoded): ".$jsonUrlDecoded;
+
+        $token = PlentyApi::getToken();
+        //1.
+        $resp1 = PlentyApi::createNewContact($token,$firstName,$lastname,$phone,$email);
+        $contact = json_decode($resp1,true);
+        //2.
+        $resp2 = PlentyApi::createNewContactAddress($token,$contact["id"],$firstName,$lastname,$street,$housenumber,$plz,$town,$country,$phone,$email,"");
+        $contactAddress = json_decode($resp2,true);
+        //3.
+        $resp3 = PlentyApi::createNewOrder($token,$contact["id"],$contactAddress["id"],$paymethod,$productsAssocArray,$shippingCost,$tax);
+        $order = json_decode($resp3,true);
+
+        //Optional
+        //If Paymethod was Paypal -> Make Payment
+        if (strpos($paymethod, 'pal') !== false ) {
+            $amount = $order["amounts"][0]["invoiceTotal"];
+            $resp4 = PlentyApi::createNewPayment($token,$amount);
+            $payment = json_decode($resp4,true);
+            PlentyApi::createPaymentOrderRelation($token,$payment["id"],$order["id"]);
+        }
+        decrementProductsQty($productsAssocArray);
+    }
+    else if ($action === "wunschmassNewOrder"){
+        $jsonOrder = json_decode($jsonUrlDecoded,true);
+        $jsonOrder["id"];
+
+        $paymethod = $jsonOrder["paymentMethod"];
+        $vorrausZahlung = $jsonOrder["vorrausZahlung"];
+        $email = $jsonOrder["customerUsername"];//email
+        $firstName = $jsonOrder["shipping_firstname"];
+        $lastname = $jsonOrder["shipping_lastname"];
+        $street = $jsonOrder["shipping_street"];
+        $housenumber = $jsonOrder["shipping_house"];
+
+        $plz = $jsonOrder["shipping_postalcode"];
+        $town = $jsonOrder["shipping_city"];
+        $country = $jsonOrder["shipping_country"];
+        $phone = $jsonOrder["shipping_phone"];
+        $shippingCost = $jsonOrder["shippingCostFull"];
+        $lieferzeit = $jsonOrder["lieferzeit"];
+        //$amount = $jsonOrder["cartPriceFull"];
+        $productsAssocArray = $jsonOrder["mapSkuAndslimProduct"];
+        Logs::insertNewLog("$ jsonOrder WUNSCHMASS: ".json_encode($jsonOrder),Logs::$type_system);
+
+        $token = PlentyApi::getToken();
+        //1.
+        $resp1 = PlentyApi::createNewContact($token,$firstName,$lastname,$phone,$email);
+        $contact = json_decode($resp1,true);
+        //2.
+        $resp2 = PlentyApi::createNewContactAddress($token,$contact["id"],$firstName,$lastname,$street,$housenumber,$plz,$town,$country,$phone,$email,$lieferzeit);
+        $contactAddress = json_decode($resp2,true);
+        //3.
+        $resp3 = PlentyApi::createNewWunschmassOrder($token,$contact["id"],$contactAddress["id"],$paymethod,$productsAssocArray,$shippingCost);
+        $order = json_decode($resp3,true);
+
+        echo "thanks, got your action '".$action."' paymentMethod: ".$paymethod." vorrausZahlung: ".$vorrausZahlung." data: ".$jsonUrlDecoded;
+
+        //Optional
+        //If Paymethod was Paypal -> Make vorrausZahlung-Payment
+        if (strpos($paymethod, 'pal') !== false ) {
+            //Vorrausbezahlten Betrag gutschreiben
+            $resp4 = PlentyApi::createNewPayment($token,floatval($vorrausZahlung));
+            $payment = json_decode($resp4,true);
+            PlentyApi::createPaymentOrderRelation($token,$payment["id"],$order["id"]);
+        }
+    }
+}
+
+
+
+
+
+
+//JUST FOR TESTING
+if(isset($_GET["action"])){
+    if($_GET["action"] === "importPlentyProducts"){
+        header('Content-Type: text/html; charset=utf-8');
+        $_SESSION["importPlentyProducts"] = "Done";
+        //Import plenty data
+        $oldFile = fopen('https://morgenland-teppiche.com/wawi2/plenty/plentyExportFull.csv','r');
+        $counter = 0;
+        $headerOK = false;
+        $indxSku = 50;$indxId=50;$indxVariantId =50;
+        $indxIsMain=50;$indxMainVariantId=50;$indxPhysStock=50;
+        $indxBarcode=50;$indxAttrValue=50;$indxWeightG=50;
+        Plenty::deleteAllItems();
+        echo "<h2>1.Truncated 'plentyproducts' table</h2><h2>2.Now inputting new data into table</h2>";
+        echo "<div class=\"col-xs-12 col-md-12 marg-15-down\" style=\"text-align: center;\"><a href=\"https://morgenland-teppiche.com/wawi2/Controller-Rest/WebshopApiEndpoint.php?action=syncPlentyQty\" class=\"button-link4\" style=\"font-size: x-large;color: white;background-color: #077717; border: 4px solid #077717;\">2.Plenty Bestand abgleichen <i class=\"fa fa-refresh\" aria-hidden=\"true\"></i></a></div><br><br>";
+        while (($line = fgetcsv($oldFile, 0, ';')) !== FALSE) {
+            if(!empty($line)){
+                if($counter == 0) {
+                    //header check
+                    $lineSize = count($line);
+                    for ($i=0; $i<$lineSize; $i++){
+                        $headername = $line[$i];
+                        if(strpos($headername, 'Variation.number') !== false ) $indxSku = $i;
+                        else if(strpos($headername, 'Item.id') !== false ) $indxId = $i;
+                        else if(strpos($headername, 'Variation.id') !== false ) $indxVariantId = $i;
+                        else if(strpos($headername, 'Variation.isMain') !== false ) $indxIsMain = $i;
+                        else if(strpos($headername, 'Variation.mainVariationId') !== false ) $indxMainVariantId = $i;
+                        else if(strpos($headername, 'VariationStock.physicalStock') !== false ) $indxPhysStock = $i;
+                        else if(strpos($headername, 'VariationBarcode.code') !== false ) $indxBarcode = $i;
+                        else if(strpos($headername, 'VariationAttributeValues.attributeValues') !== false ) $indxAttrValue = $i;
+                        else if(strpos($headername, 'Variation.weightG') !== false ) $indxWeightG = $i;
+                    }
+
+                    echo "Import from plenytExportFull.csv (HEADER) <br> <b style='color: red;'>Kopfzeile</b>".json_encode($line)."<br>";
+
+                }
+                else {
+                    $sku = $line[$indxSku];
+                    $id = $line[$indxId];
+                    $variantId = $line[$indxVariantId];
+                    $isMain =$line[$indxIsMain];
+                    $mainVariationId = $line[$indxMainVariantId];
+                    $physicalStock = $line[$indxPhysStock];
+					if($isMain === "" || empty($isMain)) $isMain = 0;
+                    if($mainVariationId === "" || empty($mainVariationId)) $mainVariationId = 0;
+					if($physicalStock === "" || empty($physicalStock)) $physicalStock = 0;
+                    
+                    $barcode = $line[$indxBarcode];
+                    $attrValues=$line[$indxAttrValue];
+                    $weightG = $line[$indxWeightG];
+                    echo "<br>[".$counter."] ".$sku." ".$id."  variantId: ".$variantId." physicalStock: ".$physicalStock." attrValues: ".$attrValues." weight: ".$weightG."<br>";
+                    $res = Plenty::insertItem($sku,$id,$variantId,$isMain,$mainVariationId,$physicalStock,$barcode,$attrValues,$weightG);
+
+                    if(strpos($res,'Error') !== FALSE) echo "<em style='color:red;'>".$res."</em>";
+                    else echo "<em style='color:green;'>".$res."</em>";
+                }
+                $counter ++;
+            }
+        }
+        echo "<h1>Fetched Plenty Stock Data for <b>".$counter."</b> Items</h1>";
+        fclose($oldFile);
+    }
+    elseif ($_GET["action"] === "getPlentyProducts"){
+        //Just for testing
+        header('Content-Type: text/html; charset=utf-8');
+        $products = Plenty::getItems(1,300);
+        foreach ($products as $product) {
+            echo "<br>".$product["sku"]." itemId: ".$product["itemId"]." attrValue: ".$product["attributeValues"];
+        }
+    }
+    elseif ($_GET["action"] === "syncPlentyQty"){
+        header('Content-Type: text/html; charset=utf-8');
+        $_SESSION["syncPlentyQty"] = "Done";
+        echo "<div style=\"text-align: center;\"><a href=\"https://morgenland-teppiche.com/wawi2/admin-products.phtml\" class=\"button-link4\" style=\"font-size: x-large;color: white;background-color: #077717; border: 4px solid #077717;\">HOME</a></div><br><br>";
+        //1. Fill PlentyTable
+        //echo fillPlentyProductsTable();
+        $token = PlentyApi::getToken();
+        //2. Foreach PlentyProduct -> Check this Sku's Qty in Wawi2
+        $number = Plenty::countAllProducts();
+        $limit = 300;
+        $maxpage = ceil($number/$limit);
+        for($i=1; $i<=$maxpage; $i++){
+            $products = Plenty::getItems($i,$limit);
+            foreach ($products as $plentyproduct) {
+               //get same product from wawi2 --> compare qty
+                $sku = $plentyproduct["sku"];
+                $wawiproduct = $productsModel->getBySku($sku);
+                if(is_array($wawiproduct)){
+                    $qtyWawi = intval($wawiproduct["qty"]);
+                    $qtyPlenty = intval($plentyproduct["physicalStock"]);
+                    echo "<br>WAWI Product found '".$sku."' qty-PLENTY [<b>".$qtyPlenty."</b>] qty-WAWI [<b>".$qtyWawi."</b>]";
+                    //COMPARE QTY -> Do Action
+                    if ($qtyWawi < $qtyPlenty){
+                        $plentyItemId = $plentyproduct["itemId"];
+                        $plentyVariationId = $plentyproduct["variationId"];
+                        //Wawi is lower -> Set Plenty
+                        echo "  <em style='background-color:darkorange;color: white;'> ---> WAWI IS LOWER [Set Plenty to] -> [<b>".$qtyWawi."</b>] </em>".$plentyItemId." variationId: ".$plentyVariationId."<br>";
+                        echo "Plenty Rest response: ".PlentyApi::setItemQty($token,$plentyItemId,$plentyVariationId,$qtyWawi);
+                    }
+                    else if ($qtyWawi == $qtyPlenty) echo "  <em style='color: darkgreen;'> ---> Same Qty, DO NOTHING</em>";
+                    else if ($qtyWawi > $qtyPlenty){
+                        //Plenty is lower -> Set Wawi
+                        echo "  <em style='background-color:yellowgreen;color: white;'> ---> PLENTY IS LOWER [set Webshop+WAWI TO] -> [<b>".$qtyPlenty."</b>] </em>";
+                        $productsModel->updateStock($sku,$qtyPlenty);
+                        echo "Webshop Rest response: ".$webshop->setItemQty($sku.",".$qtyPlenty);
+                    }
+                }else {
+                    echo "<br><em style='color: red;'>Error: No Wawi Product found, for Plenty SKU '".$sku."'</em>";
+                }
+            }
+        }
+    }
+    elseif ($_GET["action"] === "showDifference"){
+        header('Content-Type: text/html; charset=utf-8');
+        //2. Foreach PlentyProduct -> Check this Sku's Qty in Wawi2
+        $number = Plenty::countAllProducts();
+        echo "<h1>".$number." Plentyproducts</h1>";
+        $limit = 300;
+        $maxpage = ceil($number/$limit);
+        for($i=1; $i<=$maxpage; $i++){
+            $products = Plenty::getItems($i,$limit);
+            foreach ($products as $plentyproduct) {
+                //get same product from wawi2 --> compare qty
+                $sku = $plentyproduct["sku"];
+                $wawiproduct = $productsModel->getBySku($sku);
+                if(is_array($wawiproduct)){
+                    $qtyWawi = intval($wawiproduct["qty"]);
+                    $qtyPlenty = intval($plentyproduct["physicalStock"]);
+                    echo "<br>WAWI Product found '".$sku."' qty-PLENTY [<b>".$qtyPlenty."</b>] qty-WAWI [<b>".$qtyWawi."</b>]";
+                    //COMPARE QTY -> Do Action
+                    if ($qtyWawi < $qtyPlenty){
+                        $plentyItemId = $plentyproduct["itemId"];
+                        $plentyVariationId = $plentyproduct["variationId"];
+                        //Wawi is lower -> Set Plenty
+                        echo "<em style='background-color:darkorange;color: white;'> ---> WAWI IS LOWER [Set Plenty to] -> [<b>".$qtyWawi."</b>] </em>".$plentyItemId." variationId: ".$plentyVariationId."<br>";
+
+                    }
+                    else if ($qtyWawi == $qtyPlenty) echo "  <em style='color: darkgreen;'> ---> Same Qty, DO NOTHING</em>";
+                    else if ($qtyWawi > $qtyPlenty){
+                        //Plenty is lower -> Set Wawi
+                        echo "<em style='background-color:yellowgreen;color: white;'> ---> PLENTY IS LOWER [set Webshop+WAWI TO] -> [<b>".$qtyPlenty."</b>] </em>";
+                    }
+                }else {
+                    echo "<br><em style='color: red;'>Error: No Wawi Product found, for Plenty SKU '".$sku."'</em>";
+                }
+            }
+        }
+    }
+    elseif ($_GET["action"] === "asSold"){
+        header('Content-Type: text/html; charset=utf-8');
+        echo $productsModel->setAsSold($_GET["sku"]);
+    }
+}
+
+function decrementProductsQty($slimpoducts){
+    global $productsModel;
+    foreach ($slimpoducts as $product) {
+        $sku = $product["skuu"];
+        $qtyInCart = intval($product["qtyInCart"]);
+        $p = $productsModel->getBySku($sku);
+        if(is_array($p)) {
+            $qty = intval($p["qty"]);
+            $newQty = $qty-$qtyInCart;
+            $productsModel->updateStock($sku,$newQty);
+            Logs::insertNewLog("ORDER-ITEM updateQty + setAsSold '".$sku."' newQty: ".$newQty,Logs::$type_system);
+            $productsModel->setAsSold($sku);
+        }
+    }
+}
+
+function fillPlentyProductsTable(){
+    $info = "";
+    //Import plenty data
+    $oldFile = fopen('https://morgenland-teppiche.com/wawi2/plenty/plentyExportFull.csv','r');
+    $counter = 0;
+    $headerOK = false;
+    $indxSku = 50;$indxId=50;$indxVariantId =50;
+    $indxIsMain=50;$indxMainVariantId=50;$indxStock=50;
+    $indxBarcode=50;$indxAttrValue=50;$indxWeightG=50;
+    Plenty::deleteAllItems();
+    $info .= "<h2>1.Truncated 'plentyproducts' table</h2><h2>2.Now inputting new data into table</h2>";
+    while (($line = fgetcsv($oldFile, 0, ';')) !== FALSE) {
+        if(!empty($line)){
+            if($counter == 0) {
+                //header check
+                $lineSize = count($line);
+                for ($i=0; $i<$lineSize; $i++){
+                    $headername = $line[$i];
+                    if(strpos($headername, 'Variation.number') !== false ) $indxSku = $i;
+                    else if(strpos($headername, 'Item.id') !== false ) $indxId = $i;
+                    else if(strpos($headername, 'Variation.id') !== false ) $indxVariantId = $i;
+                    else if(strpos($headername, 'Variation.isMain') !== false ) $indxIsMain = $i;
+                    else if(strpos($headername, 'Variation.mainVariationId') !== false ) $indxMainVariantId = $i;
+                    else if(strpos($headername, 'VariationStock.physicalStock') !== false ) $indxStock = $i;
+                    else if(strpos($headername, 'VariationBarcode.code') !== false ) $indxBarcode = $i;
+                    else if(strpos($headername, 'VariationAttributeValues.attributeValues') !== false ) $indxAttrValue = $i;
+                    else if(strpos($headername, 'Variation.weightG') !== false ) $indxWeightG = $i;
+                }
+
+                $info .= "Import from plenytExportFull.csv (HEADER) <br> <b style='color: red;'>Kopfzeile</b>".json_encode($line)."<br>";
+
+            }
+            else {
+                $sku = $line[$indxSku];
+                $id = $line[$indxId];
+                $variantId = $line[$indxVariantId];
+                $isMain =$line[$indxIsMain];
+                $mainVariationId = $line[$indxMainVariantId];
+				$stock = $line[$indxStock];
+                if($isMain === "" || empty($isMain)) $isMain = 0;
+                if($mainVariationId === "" || empty($mainVariationId)) $mainVariationId = 0;
+				if($stock === "" || empty($stock)) $stock = 0;
+                $barcode = $line[$indxBarcode];
+                $attrValues=$line[$indxAttrValue];
+                $weightG = $line[$indxWeightG];
+                $info .= "<br>[".$counter."] ".$sku." ".$id."  varId: ".$variantId." stock: ".$stock." attrValues: ".$attrValues." weight: ".$weightG."<br>";
+                $res = Plenty::insertItem($sku,$id,$variantId,$isMain,$mainVariationId,$stock,$barcode,$attrValues,$weightG);
+
+                if(strpos($res,'Error') !== FALSE) $info .= "<em style='color:red;'>".$res."</em>";
+                else $info .= "<em style='color:green;'>".$res."</em>";
+            }
+            $counter ++;
+        }
+    }
+    fclose($oldFile);
+    return $info;
+}
+

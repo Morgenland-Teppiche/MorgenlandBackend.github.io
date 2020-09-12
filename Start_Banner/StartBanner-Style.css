@@ -1,0 +1,214 @@
+/*------------------------------------------------*/
+/*Banner V1*/
+/*------------------------------------------------*/
+
+.BigImage-V1 {
+    width: 60vw;
+    background-image: url(https://cdn02.plentymarkets.com/6wg68w8zahno/frontend/Webshop-Neu/Startseiten_Banner/morgenland_banner_2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+@media only screen and (max-width: 1285px) {
+    .BigImage-V1 {
+        width: 50vw;
+        background-position: 30%;
+    }
+}
+
+@media only screen and (max-width: 766px) {
+
+    .BigImage-V1 {
+        height: 400px;
+        width: 100%;
+    }
+
+}
+
+/*------------------------------------------------*/
+/*Banner V2*/
+/*------------------------------------------------*/
+
+.BannerStartV2 {
+    height: 500px;
+    width: 100%;
+}
+
+.FrontContainBannerV2 {
+    z-index: 4;
+    height: 100%;
+    left: 0;
+    background-color: white;
+    display: flex;
+}
+
+.TextStartBannerV2 {
+    width: 50%;
+    height: 500px;
+    font-family: 'Bellota Text';
+    font-size: 24pt;
+    background-color: #ffffff;
+    text-align: left;
+    padding-left: 100px;
+    border-top-left-radius: 300px;
+    border-bottom-left-radius: 300px;
+    position: absolute;
+    right: 0;
+    box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.13);
+}
+
+.RabbatStartBannerV2 {
+    color: #9d212d;
+    font-size: 30pt;
+}
+
+
+.BGStartBannerV2 {
+    background-image: url(https://cdn02.plentymarkets.com/6wg68w8zahno/frontend/Webshop-Neu/Startseiten_Banner/morgenland_banner_2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 70%;
+    height: 500px;
+    position: absolute;
+    left: 0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+    transition: opacity 0.3s ease;
+}
+
+.BGStartBannerV2:hover {
+    opacity: 0.8;
+}
+
+
+@media only screen and (max-width: 991px) {
+    .BGStartBannerV2 {
+        position: relative;
+        width: 100vw;
+        height: 200px;
+        z-index: 3;
+    }
+
+    .TextStartBannerV2 {
+        width: 100%;
+        border-radius: 0;
+        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.27);
+        text-align: center;
+        height: 300px;
+        position: relative;
+        padding: 0;
+        z-index: 4;
+    }
+
+    .ButtonStartBannerV2 {
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.26);
+    }
+
+}
+
+/*------------------------------------------------*/
+/*Banner V3*/
+/*------------------------------------------------*/
+
+@keyframes TransformIn {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+.BannerStartV3 {
+    width: 100%;
+    background-color: #f5f5f5;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.13);
+    overflow: hidden;
+    border-bottom: 10px solid #fff;
+    border-top: 10px solid #fff;
+    padding: 30px 0px;
+}
+
+
+.MaskMiddleStartBannerV3 {
+    overflow: hidden;
+    height: 400px;
+    border-radius: 200px;
+    width: 40vw;
+    border: 20px solid #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+    margin: 20px;
+    animation: TransformIn 0.5s;
+    max-width: 600px;
+    transition: opacity 0.3s ease;
+    order: 0;
+}
+
+.MaskMiddleStartBannerV3:hover {
+    opacity: 0.8;
+}
+
+.CircleFrontBannerStartV3 {
+    width: 900px;
+}
+
+.TextBoxLeftBannerV3 {
+    width: 30vw;
+    font-family: 'Bellota Text';
+    font-size: 24pt;
+    text-align: right;
+    padding: 0px 60px;
+    height: 400px;
+    text-transform: uppercase;
+    background-color: #f5f5f5;
+    order: 0;
+}
+
+.ReduziertBannerStartV3 {
+    text-align: left;
+    color: #9d212d;
+    font-weight: 800;
+
+}
+
+@media only screen and (max-width: 991px) {
+    .MaskMiddleStartBannerV3 {
+        overflow: hidden;
+        height: 300px;
+        border-radius: 0px;
+        width: 100vw;
+        animation: TransformIn 0.5s;
+        max-width: 100%;
+        transition: opacity 0.3s ease;
+        border: 0px;
+       
+    }
+    
+    .CircleFrontBannerStartV3 {
+    width: 100%;
+}
+
+
+    .TextBoxLeftBannerV3 {  
+        text-align: center;
+        padding: 0;
+        width: 100%;
+        height: 100px;
+    }
+    
+    
+    .ReduziertBannerStartV3 {
+        text-align: center;
+        
+    }
+    
+    
+    
+}

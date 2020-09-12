@@ -1,0 +1,1327 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
+a,
+a:hover {
+    text-decoration: none;
+}
+
+
+/*###########################################*/
+/*Header*/
+/*###########################################*/
+.HeaderFixedBox {
+    position: fixed;
+    background-color: #fff;
+    z-index: 10;
+    -webkit-box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.06);
+            box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.06);
+}
+
+.HeaderBanner {
+    padding: 10px 0px 0px 0px;
+}
+
+.SearchFormBox {
+    margin: 10px 0px 0px 20px;
+}
+
+
+.header {
+    /*    position: fixed;*/
+    z-index: 999;
+    background-color: white;
+    width: 100%;
+    max-width: 1540px;
+
+}
+
+/*------------------------*/
+/*Navigation*/
+/*------------------------*/
+.Navigation {
+    width: 100%;
+    background-color: #ffffff;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+}
+
+.Navigation a {
+    text-decoration: none;
+}
+
+.fa-home {
+    padding: 10px;
+    margin: 10px;
+    font-size: 20pt;
+    color: #3f3f3f;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.fa-home:hover {
+    background-color: #3f3f3f;
+    color: white;
+}
+
+
+
+.MobileSearch input.SearchEinblendenButton{
+    position: fixed;
+    left: 10px;
+    top: 24px;
+    height: 40px;
+    width: 40px;
+    opacity: 0;
+    z-index: 5;
+}
+
+.MobileSearch > input.SearchEinblendenButton:checked ~ .SearchMobileBar{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.MobileSearch input.SearchEinblendenButton:hover{
+    cursor: pointer;   
+}
+
+.MobileSearch > input.SearchEinblendenButton:checked ~ .ButtonMobileSearch{
+    background-image: url(https://cdn02.plentymarkets.com/6wg68w8zahno/frontend/Webshop-Neu/Menu/Icon/Exit.svg);
+}
+
+
+
+
+.ButtonMobileSearch{
+     background-image: url(https://cdn02.plentymarkets.com/6wg68w8zahno/frontend/Webshop-Neu/Menu/Icon/Search.svg);
+    background-position: center;
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    top: 24px;
+    left: 10px;
+    z-index: 4;
+    -webkit-transition: background-image 0.3s ease;
+    -o-transition: background-image 0.3s ease;
+    transition: background-image 0.3s ease;
+}
+
+.SearchForm .suchfeld {
+    border: 1px solid #3f3f3f;
+    border-radius: 0px;
+    width: 250px;
+    padding: 0px 0px 0px 10px;
+    -webkit-transition: padding 0.2s ease, border-radius 0.2s ease;
+    -o-transition: padding 0.2s ease, border-radius 0.2s ease;
+    transition: padding 0.2s ease, border-radius 0.2s ease;
+    margin-right: 5px;
+    color: #afafaf;
+}
+
+.SearchMobileBar{
+    display: none;
+    
+}
+
+.SearchMobileBar > .SearchForm .suchfeld{
+    width: 90%;
+}
+
+@media only screen and (max-width: 1215px) {
+    .SearchForm .suchfeld {
+        width: 180px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    
+    .SearchFormBox{
+        display: none;
+    }
+    
+    
+    .SearchForm .suchfeld {
+        width: 100%;
+    }
+}
+
+
+.SearchForm .suchfeld:focus {
+    border: 1px solid #3f3f3f;
+    outline: none;
+    padding-left: 16px;
+    border-radius: 20px;
+    color: #3f3f3f;
+}
+
+.SearchForm .suchbutton {
+    background-color: #fff;
+    color: #3f3f3f;
+    border: 0px solid black;
+    font-size: 15pt;
+    -webkit-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.SearchForm .suchbutton:focus {}
+
+
+
+
+.LogoMT {
+    width: 150px;
+}
+
+.Logo_width {
+    width: 150px;
+}
+
+@media only screen and (max-width: 991px) {
+    .Logo_width {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+.suchbutton {
+    font-family: 'FontAwesome';
+}
+
+.NavigationsPoint {
+    padding: 10px;
+    color: #3f3f3f;
+    -webkit-transition: background-color 0.3s ease, color 0.4s ease, border-radius 0.3s ease;
+    -o-transition: background-color 0.3s ease, color 0.4s ease, border-radius 0.3s ease;
+    transition: background-color 0.3s ease, color 0.4s ease, border-radius 0.3s ease;
+    margin: 10px;
+    border-bottom: 1px solid #3f3f3f;
+    font-family: 'Bellota Text', bold;
+    font-size: 12pt;
+}
+
+@media only screen and (max-width: 1215px) {
+    .NavigationsPoint {
+        margin: 3px;
+    }
+
+    .fa-home {
+        margin: 3px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .NavigationsPoint {
+        font-size: 18pt;
+        margin-bottom: 20px;
+    }
+}
+
+.NavigationsPoint:hover {
+    color: #fff;
+    background-color: #3f3f3f;
+}
+
+.vorteile_leiste {
+    width: 100%;
+    padding: 0px 0px 10px 0px;
+}
+
+.vorteile_leiste .vorteilpunkt {
+    padding: 10px 20px 0px 20px;
+    color: #a7a7a7;
+    font-size: 10pt;
+}
+
+@media only screen and (max-width: 778px) {
+    .vorteile_leiste {
+        display: none;
+    }
+
+
+}
+
+
+@media only screen and (max-width: 991px) {
+
+    /*
+    .SearchForm {
+        justify-content: flex-start;
+    }
+*/
+
+    .SearchFormBox {
+        margin: 0px 0px 20px 0px;
+    }
+
+    .HeaderBanner > a {
+        margin-bottom: 20px;
+    }
+}
+
+
+/*------------------------*/
+/*Mobile Navigation*/
+/*------------------------*/
+
+.MobileNavBox {
+    display: none;
+}
+
+.mobilenav {
+    position: fixed;
+    width: 100%;
+    padding: 50px 10px 20px 10px;
+    background-color: #fff;
+    text-align: center;
+    top: 130px;
+    right: -100%;
+    height: 100vh;
+    z-index: 11;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-transition: right 0.3s ease;
+    -o-transition: right 0.3s ease;
+    transition: right 0.3s ease;
+}
+
+@media only screen and (max-width: 778px) {
+    .mobilenav {
+        top: 90px;
+    }
+}
+
+.mobile_nav_element {
+    width: 80px;
+    height: 80px;
+    margin: 0px 10px;
+}
+
+.MobileNavBox input {
+    position: fixed;
+    right: 10px;
+    top: 24px;
+    height: 40px;
+    width: 40px;
+    opacity: 0;
+    z-index: 5;
+}
+
+.ButtonMobileNavCSS {
+    background-image: url(https://cdn02.plentymarkets.com/6wg68w8zahno/frontend/Webshop-Neu/Menu/Icon/Burger_Menu_V1.svg);
+    background-position: center;
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    top: 24px;
+    right: 10px;
+    z-index: 4;
+    -webkit-transition: background-image 0.3s ease;
+    -o-transition: background-image 0.3s ease;
+    transition: background-image 0.3s ease;
+}
+
+.MobileNavBox input:hover {
+    cursor: pointer;
+}
+
+.MobileNavBox input:checked ~ .mobilenav {
+    right: 0;
+}
+
+.MobileNavBox input:checked ~ .ButtonMobileNavCSS {
+    background-image: url(https://cdn02.plentymarkets.com/6wg68w8zahno/frontend/Webshop-Neu/Menu/Icon/Exit.svg);
+}
+
+
+
+
+@media only screen and (max-width: 750px) {
+    .mobile_nav_element {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media only screen and (max-width: 520px) {
+    .mobile_nav_element {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .MobileNavBox {
+        display: block;
+    }
+}
+
+
+/*------------------------*/
+/*Shop_Kategorien*/
+/*------------------------*/
+.Shop_Kategorien input {
+    display: none;
+    width: 150px;
+    height: 40px;
+    position: fixed;
+    cursor: pointer;
+    opacity: 0;
+    /* hide this */
+    z-index: 4;
+    /* and place it over the hamburger */
+    -webkit-touch-callout: none;
+}
+
+.ButtonNavCSS {
+    display: none;
+    position: fixed;
+    width: 150px;
+    height: 40px;
+    padding: 10px;
+    z-index: 3;
+    background-color: #ffffff;
+}
+
+.Shop_KategorienSlide {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    padding: 10px;
+    z-index: 2;
+    left: -100%;
+    -webkit-transition: left 0.3s ease;
+    -o-transition: left 0.3s ease;
+    transition: left 0.3s ease;
+}
+
+.Shop_Kategorien input:checked ~ .Shop_KategorienSlide {
+    position: absolute;
+    left: 0;
+}
+
+@media only screen and (max-width: 991px) {
+
+    .Shop_KategorienSlide {
+        display: block;
+    }
+
+    .ButtonNavCSS {
+        display: block;
+    }
+
+    .Shop_Kategorien input {
+        display: block;
+    }
+
+    .lcat ul.lev1 li a,
+    .lcat ul.lev2 li a,
+    .lcat ul.lev1 li span,
+    .lcat ul.lev2 li span {
+        color: #9D212D;
+    }
+
+    div.lcat {
+        padding: 50px 20px 20px 20px;
+    }
+
+}
+
+
+
+/*------------------------*/
+/*Old Navigation Anpassungen*/
+/*------------------------*/
+
+.LogoHeader {
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    -o-transition: transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+
+.LogoHeader:hover {
+    -webkit-transform: scale(1.03);
+        -ms-transform: scale(1.03);
+            transform: scale(1.03);
+}
+
+.container {
+    padding: 40px 0px;
+}
+
+.small_container_padding {
+    padding: 2px 0px;
+}
+
+.art h1:before,
+.container h1:before {
+    color: white;
+}
+
+.art h1,
+.container h1 {
+    background: #fff;
+}
+
+.art h1:after,
+.container h1:after {
+    color: white;
+}
+
+.dsc h2 {
+    border-bottom: 0px;
+}
+
+.Highlights_Punkte {
+    text-align: left;
+}
+
+
+/* ######################################### */
+/* CONTENT */
+/* ######################################### */
+
+.CONTENT {
+    max-width: 1600px;
+    padding: 0px 30px;
+}
+
+.ContentAbstand{
+    height: 200px;
+}
+
+
+
+
+@media only screen and (max-width: 991px) {
+    .CONTENT {
+        padding: 0px 0px;
+    }
+    
+    .ContentAbstand{
+    height: 100px;
+}
+}
+
+/*------------------------*/
+/* Banner */
+/*------------------------*/
+.BannerStartV2 {
+    height: 500px;
+    width: 100%;
+}
+
+.FrontContainBannerV2 {
+    z-index: 4;
+    height: 100%;
+    left: 0;
+    background-color: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.TextStartBannerV2 {
+    width: 50%;
+    height: 500px;
+    font-family: 'Bellota Text';
+    font-size: 24pt;
+    background-color: #ffffff;
+    text-align: left;
+    padding-left: 100px;
+    border-top-left-radius: 300px;
+    border-bottom-left-radius: 300px;
+    position: absolute;
+    right: 0;
+    -webkit-box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.13);
+            box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.13);
+}
+
+.RabbatStartBannerV2 {
+    color: #3f3f3f;
+    font-size: 30pt;
+}
+
+
+.BGStartBannerV2 {
+    background-image: url(https://cdn02.plentymarkets.com/6wg68w8zahno/frontend/Webshop-Neu/Startseiten_Banner/morgenland_banner_2.jpg);
+    background-image: url(https://cdn02.plentymarkets.com/6wg68w8zahno/frontend/Ebay/shop/images/Startseitenbilder_Zugeschnitten/Banner/Gabbeh-Teppiche-Moderne-Teppiche.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 70%;
+    height: 500px;
+    position: absolute;
+    left: 0;
+    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+    -webkit-transition: opacity 0.3s ease;
+    -o-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+}
+
+.BGStartBannerV2:hover {
+    opacity: 0.8;
+}
+
+
+@media only screen and (max-width: 991px) {
+    .BannerStartV2 {
+        height: auto;
+        width: 100%;
+    }
+
+    .BGStartBannerV2 {
+        position: relative;
+        width: 98vw;
+        height: 400px;
+        z-index: 3;
+    }
+
+    .TextStartBannerV2 {
+        width: 100%;
+        border-radius: 0;
+        -webkit-box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.27);
+                box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.27);
+        text-align: center;
+        height: 300px;
+        position: relative;
+        padding: 0;
+        z-index: 4;
+    }
+
+    .ButtonStartBannerV2 {
+        -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.26);
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.26);
+    }
+
+}
+
+
+
+/*------------------------*/
+/* Animations */
+/*------------------------*/
+.IMGBlend_V1 {
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.IMGBlend_V1:hover {
+    opacity: 0.8;
+    border-radius: 30px;
+}
+
+/*------------------------*/
+/* Buttons */
+/*------------------------*/
+
+.Button-V2 {
+    color: #3f3f3f;
+    width: 200px;
+    text-align: center;
+    font-family: 'Bellota Text', bold;
+    font-weight: bold;
+    font-size: 14pt;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    padding: 10px 10px 10px 10px;
+    border: solid 1px #3f3f3f;
+}
+
+.Button-V2:hover {
+    color: #FFF;
+    background-color: #3f3f3f;
+    border-radius: 50px;
+    padding: 10px 10px 10px 30px;
+}
+
+
+.Buttons_Startseite_V1 {
+    color: #3f3f3f;
+}
+
+.Buttons_Startseite_V1:hover {
+    color: white;
+    background-color: #3f3f3f;
+}
+
+/*------------------------*/
+/* IMG */
+/*------------------------*/
+.IMG_BOX {
+    overflow: hidden;
+
+}
+
+.IMG_BOX > img {
+    width: 600px;
+    min-width: 600px;
+    max-height: 360px;
+}
+
+
+.BildreiheIMG {
+    max-width: 400px;
+    margin: 0px 10px;
+
+}
+
+
+.BilderReiheBox {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+}
+
+
+
+.KachelnBilderStartseiteV1 {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 1551px) {
+    .KachelnBilderStartseiteV1 {
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+    }
+}
+
+
+
+.IMG_Kachel {
+    overflow: hidden;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    width: 700px;
+    margin: 10px 0px;
+    -webkit-transition: opacity 0.3s ease;
+    -o-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+}
+
+.KachelAbstand {
+    margin: 0px 10px;
+}
+
+
+.IMG_Kachel:hover {
+    opacity: 0.7;
+}
+
+.IMG_Kachel img {
+    position: absolute;
+    max-width: none;
+    height: 100%;
+}
+
+.Large {
+    height: 600px;
+}
+
+.Small {
+    height: 400px;
+}
+
+
+.IMG_Kachel > h4 {
+    font-family: 'Bellota Text';
+    color: #3f3f3f;
+    font-size: 25pt;
+    background-color: rgba(255, 255, 255, 0.83);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.32);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.32);
+}
+
+@media only screen and (max-width: 991px) {
+    .IMG_Kachel {
+        width: 400px;
+    }
+
+    .BildreiheIMG {
+        max-width: 250px;
+    }
+
+    .Large {
+        height: 400px;
+    }
+
+    .Small {
+        height: 400px;
+    }
+
+
+}
+
+@media only screen and (max-width: 410px) {
+    .IMG_Kachel {
+        width: 200px;
+    }
+
+    .Large {
+        height: 300px;
+    }
+
+    .Small {
+        height: 300px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .BildreiheIMG {
+        margin: 0;
+        max-width: 250px;
+    }
+
+    .KachelAbstand {
+        margin: 0;
+    }
+}
+
+@media only screen and (max-width: 1331px) {
+    .BilderReiheBox {
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    }
+
+
+    .NavigationsPoints {
+        font-size: 16pt;
+    }
+}
+
+
+/*------------------------*/
+/* Text */
+/*------------------------*/
+.Text_R_V1 {
+    width: 40%;
+    padding: 20px 20px;
+}
+
+
+.Text_Element_V1 {
+    color: #3f3f3f;
+    font-family: 'Roboto';
+}
+
+@media only screen and (max-width: 991px) {
+    .IMG_BOX > img {
+        width: 100%;
+        min-width: 100px;
+        max-height: 100%;
+    }
+
+    .Text_R_V1 {
+        width: 100%;
+        padding: 20px 20px;
+    }
+
+
+    .BilderReiheBox {
+        width: auto;
+    }
+}
+
+
+
+/*------------------------*/
+/* Headlines */
+/*------------------------*/
+
+
+.MiniTitleText {
+    margin-top: 20px;
+}
+
+
+
+.Headlines_Startseite {
+    font-family: 'Bellota Text', bold;
+    font-size: 25pt;
+    color: #3f3f3f;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    padding: 0px 20px 0px 20px;
+    font-weight: bold;
+}
+
+
+.HeadlineLink:hover .Headlines_Startseite {
+    /*    color: #d4b7b7;*/
+    color: #cecece;
+}
+
+.Kursiv-Headlines-Startseite {
+    font-family: 'Bellota Text', cursive;
+    font-style: italic;
+    color: #a38181;
+    color: #323232;
+    text-align: center;
+    font-size: 20pt;
+    padding-top: 0;
+    margin-top: 10px;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+
+}
+
+.HeadlineLink:hover .Kursiv-Headlines-Startseite {
+    color: #c5c5c5;
+}
+
+.Trennstrich {
+    width: 100%;
+    height: 1px;
+    background-color: #191919;
+    margin-top: 40px;
+}
+
+
+.HeadlinesBox {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    width: 100%;
+}
+
+.MiniTitleText,
+.MiniTitleText a {
+    font-family: 'Bellota Text', bold;
+    color: #323232;
+    font-size: 16pt;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.MiniTitleText a:hover {
+    color: #9D212D;
+}
+
+
+.BiggerH1 {
+    font-size: 40pt;
+    width: 600px;
+}
+
+.WrapText {
+    white-space: nowrap;
+
+}
+
+@media only screen and (max-width: 766px) {
+    .Headlines_Startseite {
+        font-size: 20pt;
+
+    }
+
+    .WrapText {
+        white-space: normal;
+    }
+
+    .Kursiv-Headlines-Startseite {
+        font-size: 18pt;
+    }
+
+    .BiggerH1 {
+        font-size: 25pt;
+        width: 100%;
+
+    }
+}
+
+
+/*------------------------*/
+/*Kathegorien Menü*/
+/*------------------------*/
+
+div.kategorien {
+    background: white;
+    -webkit-box-shadow: 0px 0px 10px #0000001a;
+            box-shadow: 0px 0px 10px #0000001a;
+}
+
+div.kategorien ul li:first-child {
+    background: #fff;
+}
+
+div.kategorien ul li:first-child:hover a {
+    color: #9D212D;
+}
+
+div.kategorien ul li {
+    font-family: 'Bellota Text';
+    font-weight: 800;
+}
+
+div.kategorien ul li:hover a {
+    color: #9D212D;
+}
+
+.dsc ul li:before {
+    color: #9D212D;
+}
+
+.kaufenbox {
+    background: #fff;
+}
+
+.preis {
+    text-align: left;
+}
+
+.suche {
+    display: none;
+}
+
+a.beo i,
+a.fsb i {
+    color: #9D212D;
+}
+
+a.beo:hover,
+a.fsb:hover {
+    color: #9D212D;
+}
+
+/*------------------------*/
+/*Tabs*/
+/*------------------------*/
+@Keyframes TabContentAnim {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(-20px);
+            -ms-transform: translateX(-20px);
+                transform: translateX(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: translateX(0px);
+            -ms-transform: translateX(0px);
+                transform: translateX(0px);
+    }
+
+}
+
+.tabs label {
+    background: #fff;
+    -webkit-transition: border-radius 0.3s ease, background 0.5s ease;
+    -o-transition: border-radius 0.3s ease, background 0.5s ease;
+    transition: border-radius 0.3s ease, background 0.5s ease;
+    border-radius: 0;
+    border-bottom: 2px solid #9D212D;
+}
+
+.tabs label:hover {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.tab-content {
+
+    -webkit-animation: TabContentAnim 0.5s ease;
+
+            animation: TabContentAnim 0.5s ease;
+}
+
+.tab-content span {
+    font-family: 'Roboto';
+    color: #4D4F4D;
+    border: 0px;
+}
+
+.tab-content > h2 {
+    font-family: 'Bellota Text';
+    font-weight: 800;
+    font-size: 18pt;
+}
+
+.tabs [id^="tab"]:checked + label {
+    background: #9D212D;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+
+
+/*------------------------*/
+/*Service*/
+/*------------------------*/
+
+.service {
+    background-color: #fff;
+    margin: 0px 0px;
+    padding: 0px;
+
+}
+
+.service > div > div {
+    margin: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    text-align: center;
+    color: #3f3f3f;
+    padding-top: 20px;
+    font-family: 'Roboto';
+    height: auto;
+}
+
+.service i {
+    color: #9D212D;
+    -webkit-transform: scale(2);
+        -ms-transform: scale(2);
+            transform: scale(2);
+}
+
+.service_kachel {
+    padding: 20px 30px 30px 30px;
+    border-radius: 30px;
+    width: 50%;
+    margin: 10px;
+    -webkit-transform: scale(0.98);
+        -ms-transform: scale(0.98);
+            transform: scale(0.98);
+    -webkit-transition: border-radius 0.3s ease, -webkit-transform 0.3s ease;
+    transition: border-radius 0.3s ease, -webkit-transform 0.3s ease;
+    -o-transition: transform 0.3s ease, border-radius 0.3s ease;
+    transition: transform 0.3s ease, border-radius 0.3s ease;
+    transition: transform 0.3s ease, border-radius 0.3s ease, -webkit-transform 0.3s ease;
+    -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.13);
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.13);
+    background: #fff;
+    line-height: 30px
+}
+
+.service_kachel:hover {
+    -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+            transform: scale(1);
+    cursor: pointer;
+    border-radius: 50px;
+}
+
+.service_kachel h2 {
+    font-family: 'Bellota Text';
+    font-weight: 800;
+    font-size: 22pt;
+    margin: 20px 0px 0px 0px;
+}
+
+.service div h2 {
+    padding: 10px 0px 0px 0px;
+    font-size: 18pt;
+}
+
+.TabsSloganText {
+    margin: 0px;
+    margin-bottom: 20px;
+    font-family: 'Bellota Text';
+    color: #9D212D;
+    font-size: 15pt
+}
+
+@media only screen and (max-width: 991px) {
+
+    .service div div {
+        height: auto;
+    }
+
+    .service_kachel {
+        width: 100%;
+        -webkit-box-shadow: 0px 0px 0px black;
+                box-shadow: 0px 0px 0px black;
+        margin: 0;
+        padding: 30px 0px 50px 0px;
+        border-bottom: 2px solid #9D212D;
+        border-radius: 0px;
+    }
+
+    .service_kachel:hover {
+        border-radius: 0px;
+        -webkit-transform: scale(0.98);
+            -ms-transform: scale(0.98);
+                transform: scale(0.98);
+    }
+}
+
+@media (max-width: 1200px) and (min-width: 992px) {
+    .service div h2 {
+        font-size: 20pt;
+    }
+}
+
+
+/*------------------------*/
+/*Products*/
+/*------------------------*/
+
+div.xsell h4 {
+    background: #fff;
+}
+
+@media (max-width: 992px) {
+
+    div.xsell h4 {}
+
+}
+
+.WeitereKategorienTitle {
+    font-size: 16pt;
+    font-family: 'Bellota Text';
+}
+
+div.xsell {
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+            transform: scale(1);
+    margin: 0;
+    /*
+    display: block;
+    width: 50%;
+    flex: 0 0 50%;
+    max-width: 100%;
+*/
+}
+
+div.xsell:hover {
+    background: #fff;
+    -webkit-transform: scale(1.02);
+        -ms-transform: scale(1.02);
+            transform: scale(1.02);
+    opacity: 0.7;
+}
+
+div.xsell span {
+    color: #9D212D;
+}
+
+.TitleCrossSellingArtikel {
+    font-size: 10pt;
+    font-family: 'Roboto';
+}
+
+
+
+/*------------------------*/
+/*Footer*/
+/*------------------------*/
+
+.nws {
+    background: #3f3f3f;
+}
+
+.footer {
+    background-color: #191919;
+    font-family: 'Roboto';
+}
+
+a.news,
+a div.news {
+    color: #3f3f3f;
+    background: #fff;
+}
+
+a.news {
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    -o-transition: transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+
+a.news:hover {
+    -webkit-transform: scale(1.02);
+        -ms-transform: scale(1.02);
+            transform: scale(1.02);
+}
+
+
+.footer h6 {
+    background: #fff;
+    color: #3f3f3f;
+}
+
+.footer ul li a {
+    color: #fff;
+}
+
+.footer p.zvb i {
+    color: #fff;
+}
+
+.footer p {
+    color: #fff;
+}
+
+.footer a.kontakt {
+    border: 0px;
+    background: #fff;
+    color: #3f3f3f;
+}
+
+.footer a.kontakt:hover {
+    background: #fff;
+    color: #a3a3a3;
+}
+
+.footer a.kontakt:before {
+    background: #3f3f3f;
+    color: #fff;
+}
+
+.VersandFooter img {
+    margin: 5px 10px;
+}
